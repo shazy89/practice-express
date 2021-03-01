@@ -10,7 +10,9 @@ exports.signup = async function (req, res) {
     }
 
     const newUser = new User({ email, password });
-    await user.save();
+    console.log(newUser);
+    await newUser.save();
+    res.json(newUser);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
