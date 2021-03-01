@@ -16,6 +16,7 @@ app.use(morgan("combined"));
 app.use(bodyParser.json());
 router(app);
 
+//DB Setup
 const mongoUri = `${process.env.MONGO_URI}`;
 const connectDb = async () => {
   try {
