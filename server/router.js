@@ -1,5 +1,6 @@
 const Authentication = require("./controllers/authentication");
 const Todo = require("./controllers/todo");
+const Drink = require("./controllers/drink");
 const pasportService = require("./services/pasport");
 const passport = require("passport");
 
@@ -11,4 +12,5 @@ module.exports = function (app) {
   //});
   app.post("/signup", Authentication.signup);
   app.post("/api/todo", requireAuth, Todo.todo);
+  app.post("/api/drink", requireAuth, Drink.newDrink);
 };
