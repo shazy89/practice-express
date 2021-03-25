@@ -4,9 +4,15 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 
 //Define our model
-const userSchema = new Schema({
-  email: { type: String, unique: true, lowercase: true },
-  password: String,
+const adminSchema = new Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  name: String,
+  lastName: String,
+  mobileNumber: String,
+  salary: String,
+  position: String,
+  date: { type: Date, default: Date.now },
 });
 
 //On Save Hook , encrypt password
@@ -25,7 +31,7 @@ const userSchema = new Schema({
 //  //  const salt = await bcrypt.genSalt(10);
 //  //  user.password = await bcrypt.hash(password, salt);
 //});
-userSchema.pre("save", function (next) {
+adminSchema.pre("save", function (next) {
   const user = this;
   //  if(!user.isDirectModified('password')){
   //      return next()
@@ -39,4 +45,4 @@ userSchema.pre("save", function (next) {
     });
   });
 });
-module.exports = User = mongoose.model("user", userSchema);
+module.exports = CulinaAdmin = mongoose.model("adminCulina", adminSchema);

@@ -1,11 +1,27 @@
-const User = require("../models/user");
+const User = require("../models/culinaAdmin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
-exports.signup = async function (req, res) {
-  const { email, password } = req.body;
+exports.culinaSignup = async function (req, res) {
+  const {
+    email,
+    password,
+    name,
+    lastName,
+    mobileNumber,
+    salary,
+    position,
+  } = req.body;
   // see if we are getting email and password
+  const userFields = {};
+  userFields.name = name;
+  userFields.email = email;
+  userFields.password = password;
+  if (lastName) userFields.lastName = lastName;
+  if (mobileNumber) userFields.mobileNumber = mobileNumber;
+  if (salary) userFields.salary = salary;
+  if (position) userFields.position = position;
 
   if (!email || !password) {
     return res
@@ -19,7 +35,7 @@ exports.signup = async function (req, res) {
       return res.status(422).send({ error: "Email is in use" });
     }
 
-    const newUser = new User({ email, password });
+    const newUser = new User(userFields);
     console.log(newUser);
     await newUser.save();
 

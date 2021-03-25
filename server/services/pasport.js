@@ -1,5 +1,5 @@
 const passport = require("passport");
-const User = require("../models/user");
+const User = require("../models/culinaAdmin");
 require("dotenv").config();
 const JwtStrategy = require("passport-jwt").Strategy; //extract this properties
 const ExtractJwt = require("passport-jwt").ExtractJwt; //extract this properties
