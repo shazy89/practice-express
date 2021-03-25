@@ -13,4 +13,5 @@ module.exports = function (app) {
   app.post("/signup", Authentication.signup);
   app.post("/api/todo", requireAuth, Todo.todo);
   app.post("/api/drink", requireAuth, Drink.newDrink);
+  app.get("/api/drinks", requireAuth, Drink.getDrinks);
 };
