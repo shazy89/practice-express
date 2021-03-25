@@ -14,4 +14,6 @@ module.exports = function (app) {
   app.post("/api/todo", requireAuth, Todo.todo);
   app.post("/api/drink", requireAuth, Drink.newDrink);
   app.get("/api/drinks", requireAuth, Drink.getDrinks);
+  app.get("/api/drink/:name", requireAuth, Drink.getSelectedDrink);
+  app.delete("/api/drink/:name", requireAuth, Drink.removeSelectedDrink);
 };

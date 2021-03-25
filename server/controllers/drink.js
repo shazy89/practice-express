@@ -18,7 +18,7 @@ exports.newDrink = async function (req, res) {
 
     if (drink) {
       // Update
-      console.log(drink);
+      console.log("Update");
       drink = await Drink.findOneAndUpdate(
         { name },
         { $set: drinkFields },
@@ -27,10 +27,8 @@ exports.newDrink = async function (req, res) {
       return res.json(drink);
     }
     // Create
-    const newDrink = new Drink({
-      drinkFields,
-    });
-
+    const newDrink = new Drink(drinkFields);
+    console.log("NEW");
     await newDrink.save();
     res.json({ newDrink });
   } catch (error) {
@@ -49,10 +47,23 @@ exports.getDrinks = async function (req, res) {
   }
 };
 // Private -(Get one drink)  api/drinks
-exports.getDrinks = async function (req, res) {
+exports.getSelectedDrink = async function ({ params: { name } }, res) {
   try {
-    const drinks = await Drink.find().sort({ date: -1 });
-    res.json(drinks);
+    const drink = await Drink.findOne({
+      name,
+    });
+    res.json(drink);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+// Private - (delete one drink)  api/drinks
+exports.removeSelectedDrink = async function ({ params: { name } }, res) {
+  try {
+    await Drink.findOneAndRemove({ name });
+
+    res.json({ msg: "Product deleted" });
   } catch (error) {
     console.error(err.message);
     res.status(500).send("Server Error");
